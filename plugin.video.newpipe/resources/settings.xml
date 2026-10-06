@@ -1,0 +1,214 @@
+<?xml version="1.0" ?>
+<settings version="2">
+	<section id="plugin.video.newpipe">
+		<category id="general" label="30020">
+			<group id="1" label="">
+				<setting id="content_country" type="string" label="30035" help="30045">
+					<level>0</level>
+					<default>BR</default>
+					<constraints>
+						<options>
+							<option label="Brasil (BR)">BR</option>
+							<option label="Portugal (PT)">PT</option>
+							<option label="Angola (AO)">AO</option>
+							<option label="Moçambique (MZ)">MZ</option>
+							<option label="Cabo Verde (CV)">CV</option>
+							<option label="Estados Unidos (US)">US</option>
+							<option label="Canadá (CA)">CA</option>
+							<option label="Reino Unido (GB)">GB</option>
+							<option label="Irlanda (IE)">IE</option>
+							<option label="Espanha (ES)">ES</option>
+							<option label="França (FR)">FR</option>
+							<option label="Alemanha (DE)">DE</option>
+							<option label="Itália (IT)">IT</option>
+							<option label="Países Baixos (NL)">NL</option>
+							<option label="Bélgica (BE)">BE</option>
+							<option label="Suíça (CH)">CH</option>
+							<option label="Áustria (AT)">AT</option>
+							<option label="Suécia (SE)">SE</option>
+							<option label="Noruega (NO)">NO</option>
+							<option label="Dinamarca (DK)">DK</option>
+							<option label="Finlândia (FI)">FI</option>
+							<option label="Polônia (PL)">PL</option>
+							<option label="Romênia (RO)">RO</option>
+							<option label="Turquia (TR)">TR</option>
+							<option label="Grécia (GR)">GR</option>
+							<option label="Índia (IN)">IN</option>
+							<option label="Japão (JP)">JP</option>
+							<option label="Coreia do Sul (KR)">KR</option>
+							<option label="Indonésia (ID)">ID</option>
+							<option label="Filipinas (PH)">PH</option>
+							<option label="Austrália (AU)">AU</option>
+							<option label="Nova Zelândia (NZ)">NZ</option>
+							<option label="México (MX)">MX</option>
+							<option label="Argentina (AR)">AR</option>
+							<option label="Chile (CL)">CL</option>
+							<option label="Colômbia (CO)">CO</option>
+							<option label="Peru (PE)">PE</option>
+							<option label="África do Sul (ZA)">ZA</option>
+						</options>
+					</constraints>
+					<control type="list" format="string"/>
+				</setting>
+				<setting id="content_country_custom" type="string" label="30041" help="30042">
+					<level>1</level>
+					<default></default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<control type="edit" format="string"/>
+				</setting>
+				<setting id="content_language" type="string" label="30036" help="30046">
+					<level>0</level>
+					<default>pt-BR</default>
+					<constraints>
+						<options>
+							<option label="Português — Portugal (pt-PT)">pt-PT</option>
+							<option label="Português — Brasil (pt-BR)">pt-BR</option>
+							<option label="English (en)">en</option>
+							<option label="Español (es)">es</option>
+							<option label="Français (fr)">fr</option>
+							<option label="Deutsch (de)">de</option>
+							<option label="Italiano (it)">it</option>
+							<option label="Nederlands (nl)">nl</option>
+							<option label="Română (ro)">ro</option>
+							<option label="Türkçe (tr)">tr</option>
+							<option label="日本語 (ja)">ja</option>
+							<option label="한국어 (ko)">ko</option>
+						</options>
+					</constraints>
+					<control type="list" format="string"/>
+				</setting>
+				<setting id="content_language_custom" type="string" label="30043" help="30044">
+					<level>1</level>
+					<default></default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<control type="edit" format="string"/>
+				</setting>
+				<setting id="trending_category" type="string" label="30047" help="30048">
+					<level>0</level>
+					<default>music</default>
+					<constraints>
+						<options>
+							<option label="Música">music</option>
+							<option label="Jogos">gaming</option>
+							<option label="Notícias">news</option>
+							<option label="Filmes">movies</option>
+							<option label="Ao vivo">live</option>
+						</options>
+					</constraints>
+					<control type="list" format="string"/>
+				</setting>
+				<setting id="live_category" type="string" label="30049" help="30050">
+					<level>0</level>
+					<default>news</default>
+					<constraints>
+						<options>
+							<option label="Notícias">news</option>
+							<option label="Música">music</option>
+							<option label="Jogos">games</option>
+							<option label="Esportes">sports</option>
+							<option label="Podcasts">podcasts</option>
+						</options>
+					</constraints>
+					<control type="list" format="string"/>
+				</setting>
+				<setting id="trailer_language" type="string" label="30052" help="30053">
+					<level>0</level>
+					<default>pt_dubbed</default>
+					<constraints>
+						<options>
+							<option label="Dublado em português">pt_dubbed</option>
+							<option label="Legendado em português">pt_subtitled</option>
+							<option label="Original em inglês">en_original</option>
+							<option label="Espanhol">es</option>
+							<option label="Romeno">ro</option>
+						</options>
+					</constraints>
+					<control type="list" format="string"/>
+				</setting>
+				<setting id="trailer_max_height" type="string" label="30054" help="30055">
+					<level>0</level>
+					<default>1080</default>
+					<constraints>
+						<options>
+							<option label="HD — 720p">720</option>
+							<option label="Full HD — 1080p">1080</option>
+							<option label="Quad HD — 1440p">1440</option>
+							<option label="Ultra HD — 2160p (4K)">2160</option>
+						</options>
+					</constraints>
+					<control type="list" format="string"/>
+				</setting>
+				<setting id="results_per_page" type="integer" label="30021">
+					<level>0</level>
+					<default>25</default>
+					<constraints>
+						<minimum>5</minimum>
+						<maximum>50</maximum>
+						<step>5</step>
+					</constraints>
+					<control type="spinner" format="integer"/>
+				</setting>
+				<setting id="feed_per_channel" type="integer" label="30022">
+					<level>0</level>
+					<default>5</default>
+					<constraints>
+						<minimum>1</minimum>
+						<maximum>20</maximum>
+						<step>1</step>
+					</constraints>
+					<control type="spinner" format="integer"/>
+				</setting>
+				<setting id="audio_only" type="boolean" label="30023">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="direct_max_height" type="string" label="30037" help="30038">
+					<level>0</level>
+					<default>720</default>
+					<constraints>
+						<options>
+							<option label="Baixa — 360p">360</option>
+							<option label="Média — 480p">480</option>
+							<option label="Alta — 720p">720</option>
+							<option label="Muito alta — 1080p">1080</option>
+						</options>
+					</constraints>
+					<control type="list" format="string"/>
+				</setting>
+				<setting id="fast_start" type="boolean" label="30039" help="30040">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="debug" type="boolean" label="30024">
+					<level>2</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="clear_cache" type="action" label="30031">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.newpipe/?action=clear_cache)</data>
+					<constraints><allowempty>true</allowempty></constraints>
+					<control type="button" format="action"><close>true</close></control>
+				</setting>
+				</group>
+			</category>
+			<category id="youtube_account" label="30059">
+				<group id="1" label="">
+					<setting id="youtube_connect" type="action" label="30060" help="30076">
+						<level>0</level>
+						<data>ActivateWindow(Videos,plugin://plugin.video.newpipe/?action=youtube_new_code,return)</data>
+						<constraints><allowempty>true</allowempty></constraints>
+						<control type="button" format="action"><close>true</close></control>
+					</setting>
+					<setting id="youtube_disconnect" type="action" label="30062" help="30078">
+						<level>0</level>
+						<data>RunPlugin(plugin://plugin.video.newpipe/?action=youtube_disconnect)</data>
+						<constraints><allowempty>true</allowempty></constraints>
+						<control type="button" format="action"><close>true</close></control>
+					</setting>
+				</group>
+			</category>
+		</section>
+</settings>

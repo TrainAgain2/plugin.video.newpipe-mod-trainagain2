@@ -1,0 +1,357 @@
+# Addon Name: NewPipe
+# Addon id: plugin.video.newpipe
+# Addon Provider: Twilight0
+msgid ""
+msgstr ""
+"Project-Id-Version: NewPipe\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+
+msgctxt "#30001"
+msgid "Search"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Subscriptions"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Subscription feed"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Watch history"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30006"
+msgid "New search..."
+msgstr ""
+
+msgctxt "#30007"
+msgid "Clear history"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Forget this search"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Videos"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Channels"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Playlists"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Subscribe"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Subscribed"
+msgstr ""
+
+msgctxt "#30015"
+msgid "Unsubscribe"
+msgstr ""
+
+msgctxt "#30016"
+msgid "Videos"
+msgstr ""
+
+msgctxt "#30017"
+msgid "Shorts"
+msgstr ""
+
+msgctxt "#30018"
+msgid "Live"
+msgstr ""
+
+msgctxt "#30020"
+msgid "General"
+msgstr ""
+
+msgctxt "#30021"
+msgid "Results per page"
+msgstr ""
+
+msgctxt "#30022"
+msgid "Feed items per channel"
+msgstr ""
+
+msgctxt "#30023"
+msgid "Audio only"
+msgstr ""
+
+msgctxt "#30024"
+msgid "Debug (disable cache)"
+msgstr ""
+
+msgctxt "#30025"
+msgid "Trending"
+msgstr ""
+
+msgctxt "#30026"
+msgid "Go to channel"
+msgstr ""
+
+msgctxt "#30027"
+msgid "Bookmarks"
+msgstr ""
+
+msgctxt "#30028"
+msgid "Bookmark"
+msgstr ""
+
+msgctxt "#30029"
+msgid "Remove bookmark"
+msgstr ""
+
+msgctxt "#30030"
+msgid "Bookmarked"
+msgstr ""
+
+msgctxt "#30031"
+msgid "Clear cache"
+msgstr ""
+
+msgctxt "#30032"
+msgid "Cache cleared"
+msgstr ""
+
+msgctxt "#30033"
+msgid "Cache clear failed"
+msgstr ""
+
+msgctxt "#30034"
+msgid "Next page"
+msgstr ""
+
+msgctxt "#30035"
+msgid "Content country (ISO 3166-1)"
+msgstr ""
+
+msgctxt "#30036"
+msgid "Content language (YouTube code)"
+msgstr ""
+
+msgctxt "#30037"
+msgid "Direct playback maximum resolution"
+msgstr ""
+
+msgctxt "#30038"
+msgid "Uses one direct audio/video stream and avoids the failing DASH proxy."
+msgstr ""
+
+msgctxt "#30039"
+msgid "Fast start"
+msgstr ""
+
+msgctxt "#30040"
+msgid "Prefer a 360p/480p direct stream when available. Disable this to prefer the highest selected resolution."
+msgstr ""
+
+msgctxt "#30041"
+msgid "Custom country code (optional)"
+msgstr ""
+
+msgctxt "#30042"
+msgid "Enter any two-letter ISO 3166-1 country code. It overrides the country picker."
+msgstr ""
+
+msgctxt "#30043"
+msgid "Custom language code (optional)"
+msgstr ""
+
+msgctxt "#30044"
+msgid "Enter a YouTube language code such as pt, pt-PT, en or es. It overrides the language picker."
+msgstr ""
+
+msgctxt "#30045"
+msgid "Select the country used by YouTube to localize results."
+msgstr ""
+
+msgctxt "#30046"
+msgid "Select the language used by YouTube to localize titles and results."
+msgstr ""
+
+msgctxt "#30047"
+msgid "Default Trending category"
+msgstr ""
+
+msgctxt "#30048"
+msgid "Choose the category that opens immediately when selecting Trending."
+msgstr ""
+
+msgctxt "#30049"
+msgid "Default Live category"
+msgstr ""
+
+msgctxt "#30050"
+msgid "Choose the category that opens immediately when selecting Live."
+msgstr ""
+
+msgctxt "#30051"
+msgid "Trailers"
+msgstr ""
+
+msgctxt "#30052"
+msgid "Trailer language/version"
+msgstr ""
+
+msgctxt "#30053"
+msgid "Choose how trailers are searched. This is independent of the selected content country."
+msgstr ""
+
+msgctxt "#30054"
+msgid "Trailer maximum resolution"
+msgstr ""
+
+msgctxt "#30055"
+msgid "Choose the resolution requested for trailers. 4K depends on availability, device decoding and InputStream Adaptive settings."
+msgstr ""
+
+msgctxt "#30056"
+msgid "Delete all watch history"
+msgstr ""
+
+msgctxt "#30057"
+msgid "Remove from watch history"
+msgstr ""
+
+msgctxt "#30058"
+msgid "Delete all watched videos from the local history?"
+msgstr ""
+
+msgctxt "#30059"
+msgid "YouTube account"
+msgstr ""
+
+msgctxt "#30060"
+msgid "Connect YouTube account"
+msgstr ""
+
+msgctxt "#30061"
+msgid "Sync YouTube subscriptions"
+msgstr ""
+
+msgctxt "#30062"
+msgid "Disconnect YouTube account"
+msgstr ""
+
+msgctxt "#30064"
+msgid "YouTube authorization is pending"
+msgstr ""
+
+msgctxt "#30065"
+msgid "Open this address in a browser:"
+msgstr ""
+
+msgctxt "#30066"
+msgid "Enter this code:"
+msgstr ""
+
+msgctxt "#30067"
+msgid "Connection setup failed"
+msgstr ""
+
+msgctxt "#30068"
+msgid "After authorization, NewPipe synchronizes automatically."
+msgstr ""
+
+msgctxt "#30069"
+msgid "YouTube subscriptions synchronized: {0}"
+msgstr ""
+
+msgctxt "#30070"
+msgid "YouTube sync failed: {0}"
+msgstr ""
+
+msgctxt "#30071"
+msgid "The YouTube authorization code expired. Start again."
+msgstr ""
+
+msgctxt "#30072"
+msgid "Disconnect from YouTube? Local subscriptions remain."
+msgstr ""
+
+msgctxt "#30073"
+msgid "YouTube account disconnected"
+msgstr ""
+
+msgctxt "#30074"
+msgid "YouTube TV login method"
+msgstr ""
+
+msgctxt "#30075"
+msgid "Uses the current public YouTube TV client data, following SmartTube's activation flow."
+msgstr ""
+
+msgctxt "#30076"
+msgid "Creates a YouTube TV activation code and QR. Authorize it with your Google account on another device."
+msgstr ""
+
+msgctxt "#30077"
+msgid "Imports the current account subscriptions after YouTube TV authorization."
+msgstr ""
+
+msgctxt "#30078"
+msgid "Removes the local OAuth token only. It never changes your YouTube subscriptions."
+msgstr ""
+
+msgctxt "#30079"
+msgid "YouTube account is already connected"
+msgstr ""
+
+msgctxt "#30080"
+msgid "QR link:"
+msgstr ""
+
+msgctxt "#30081"
+msgid "No Google Cloud client configuration is required"
+msgstr ""
+
+msgctxt "#30082"
+msgid "The public YouTube TV client is fetched when a new activation code is created and cached only in the local addon profile."
+msgstr ""
+
+msgctxt "#30083"
+msgid "Subscribed channels"
+msgstr ""
+
+msgctxt "#30084"
+msgid "My YouTube"
+msgstr ""
+
+msgctxt "#30085"
+msgid "My subscriptions"
+msgstr ""
+
+msgctxt "#30086"
+msgid "Watch Later"
+msgstr ""
+
+msgctxt "#30087"
+msgid "Saved playlists"
+msgstr ""
+
+msgctxt "#30088"
+msgid "Add to Watch Later"
+msgstr ""
+
+msgctxt "#30089"
+msgid "Remove from Watch Later"
+msgstr ""
+
+msgctxt "#30090"
+msgid "Local watch history"
+msgstr ""

@@ -1,0 +1,8 @@
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Kodi local runtime state
+addon_data/
+*.log
+*.tmp
