@@ -904,23 +904,16 @@ def youtube_sync_now():
             log('NewPipe não abriu o menu de sincronização: {0}'.format(exc))
 
     def refresh_library():
-        progress = None
+        # DialogProgress is not available in some Android Kodi builds. Use the
+        # native notification API instead: it is displayed immediately, does
+        # not block the request and works with the installed Estuary skin.
         try:
-            # Show immediate feedback before the authenticated TV browse starts.
-            # The server can take a few seconds, especially for larger accounts.
-            progress = xbmcgui.DialogProgress()
-            progress.create(
+            xbmcgui.Dialog().notification(
                 'NewPipe MOD',
-                'A sincronizar subscrições do YouTube',
-                'A obter canais e vídeos. Isto pode demorar alguns segundos.')
-            progress.update(10, 'A sincronizar subscrições do YouTube',
-                            'A obter canais e vídeos...')
-            xbmc.sleep(100)
-            summary = youtube_sync.sync_library()
-            progress.update(100, 'Sincronização concluída', 'A preparar o resumo...')
-        finally:
-            if progress:
-                progress.close()
+                'A sincronizar subscrições do YouTube…', time=10000)
+        except Exception as exc:
+            log('NewPipe não mostrou aviso de sincronização: {0}'.format(exc))
+        summary = youtube_sync.sync_library()
         message = '{0} canais, {1} vídeos'.format(
             summary.get('channels', 0), summary.get('videos', 0))
         kodi.infoDialog(_text(30069, 'YouTube subscriptions synchronized: {0}').format(message))

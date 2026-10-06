@@ -21,7 +21,7 @@ No menu inicial, abra **A minha conta do YouTube**. Depois do login e de uma sin
 1. Abra **A minha conta do YouTube**.
 2. Se a conta ainda não estiver ligada, selecione **Fazer login no YouTube** e aprove o código em `yt.be/activate` ou pelo QR.
 3. Depois de a página Google informar que o dispositivo está ligado, o NewPipe MOD fecha automaticamente o submenu QR e abre **A minha conta do YouTube**.
-4. Selecione **Sincronizar subscrições do YouTube**. Uma janela **A sincronizar subscrições do YouTube** aparece imediatamente; aguarde o resumo, por exemplo: `12 canais, 48 vídeos`.
+4. Selecione **Sincronizar subscrições do YouTube**. A notificação **A sincronizar subscrições do YouTube…** aparece imediatamente; aguarde o resumo, por exemplo: `12 canais, 48 vídeos`.
 5. Abra os menus de vídeos, canais, Ver mais tarde, playlists ou histórico.
 
 Na sincronização, o NewPipe MOD seleciona a identidade pessoal ou de marca ativa pelo endpoint interno de contas do YouTube TV antes de ler a biblioteca. Assim, as subscrições não são consultadas como conta anónima.
