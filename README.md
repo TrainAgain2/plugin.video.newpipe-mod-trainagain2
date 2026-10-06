@@ -22,6 +22,12 @@ Edição MOD do NewPipe para Kodi, preservando a autoria original, o repositóri
 3. No Kodi, use **Add-ons → Instalar a partir de ficheiro ZIP**.
 4. Depois da instalação, abra **A minha conta do YouTube** e selecione **Sincronizar subscrições do YouTube** uma vez.
 
+### Instalação autónoma
+
+O ZIP da **NewPipe MOD** já contém as bibliotecas necessárias. **Não instale um repositório Kodi adicional, um kit anterior ou módulos `script.module.*` separados.**
+
+Este repositório GitHub serve apenas para código-fonte e versões da MOD; não precisa de ser instalado no Kodi como repositório.
+
 ## Atribuição e licença
 
 A atribuição detalhada está em [`plugin.video.newpipe/MOD-ATTRIBUTION.md`](plugin.video.newpipe/MOD-ATTRIBUTION.md). O código permanece sob a licença **GPL-3.0-only**. Consulte também o repositório original de [Twilight0](https://github.com/Twilight0/plugin.video.newpipe).

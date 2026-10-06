@@ -1,33 +1,35 @@
-# NewPipe 1.2.0 — instalação sem dependências externas
+# NewPipe MOD 1.4.12 — instalação autónoma
 
-Esta edição é **autónoma**: instale apenas o ZIP do NewPipe. Não instale Tulip, URL Dispatcher, Scrapetube, Unicache, ResolveURL, PluginsGR, Kodi Six nem qualquer repositório separado.
+Esta MOD é **autónoma**: instale somente o ZIP `plugin.video.newpipe-1.4.12-mod.zip`.
+
+> Não instale repositório Kodi adicional nem módulos externos como Tulip, URL Dispatcher, Scrapetube, Unicache, ResolveURL, PluginsGR e Kodi Six. As bibliotecas necessárias já acompanham o próprio ZIP da MOD.
 
 ## Instalação
 
 1. No Kodi, abra **Add-ons → Instalar a partir de ficheiro ZIP**.
-2. Escolha `plugin.video.newpipe-1.2.0-autonomo.zip`.
+2. Escolha `plugin.video.newpipe-1.4.12-mod.zip`.
 3. Aguarde a notificação **Add-on instalado**.
-4. Abra **Vídeos → Add-ons de vídeo → NewPipe**.
+4. Abra **Vídeos → Add-ons de vídeo → NewPipe MOD**.
 
 ## O que está incluído
 
-| Componente | Utilização no NewPipe |
+| Componente | Utilização no NewPipe MOD |
 |---|---|
 | Tulip | Criação de listas e comunicação com a interface Kodi |
 | URL Dispatcher | Navegação das rotas internas |
 | Scrapetube e requests | Pesquisa, canais, playlists e paginação YouTube |
 | Unicache | Cache de consultas |
 | Kodi Six | Camada de compatibilidade Kodi do motor de streams |
-| Resolver YouTube nativo | Obtenção do stream direto de áudio/vídeo |
+| Motor YouTube nativo | Obtenção do stream direto de áudio/vídeo |
 
-A reprodução HLS usa o **InputStream Adaptive** quando esse componente já estiver disponível no Kodi; este não é uma dependência de instalação do add-on.
+A reprodução HLS usa o **InputStream Adaptive** quando esse componente já estiver disponível no Kodi; ele não é uma dependência externa de instalação desta MOD.
 
-## Atualização da versão anterior
+## Atualização
 
-- O Kodi atualiza a versão 1.1.1 automaticamente porque esta edição usa a versão **1.2.0**.
-- Pode deixar instalados os antigos módulos externos; eles deixam de ser usados pelo NewPipe.
-- As definições, histórico, favoritos, subscrições locais e a sessão do YouTube existente são mantidos no perfil do add-on.
+- Instale o ZIP 1.4.12 por cima de uma versão anterior do `plugin.video.newpipe`.
+- As definições, histórico, favoritos, subscrições locais e sessão do YouTube são mantidos no perfil do add-on.
+- Caso o Kodi mostre uma versão antiga do menu, use **Configurações → Limpar cache** e reinicie o add-on.
 
 ## Diagnóstico
 
-Se o Kodi mostrar erro durante a instalação, confirme que selecionou o ZIP cujo nome termina em `autonomo.zip`. Este pacote contém a pasta raiz `plugin.video.newpipe/` e declara somente `xbmc.python`, que faz parte do Kodi 20/21.
+Se o Kodi mostrar um erro durante a instalação, confirme que o ZIP contém a pasta raiz `plugin.video.newpipe/` e que o `addon.xml` declara somente `xbmc.python`, componente padrão do Kodi 20/21.

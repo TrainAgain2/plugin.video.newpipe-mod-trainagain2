@@ -44,9 +44,9 @@ personal stays in plain JSON files inside the addon profile on your own device.
 
 - Kodi 20+ (Nexus/Omega). `inputstream.adaptive` is used only when a YouTube
   HLS manifest is selected by Kodi.
-- No external `script.module.*` add-ons: Tulip, URL dispatcher, Scrapetube,
-  Unicache, requests, Kodi Six and the YouTube resolver are included in the
-  NewPipe ZIP.
+- No external `script.module.*` add-ons or Kodi repository: Tulip, URL
+  dispatcher, Scrapetube, Unicache, requests, Kodi Six and the YouTube
+  resolver are included in the NewPipe MOD ZIP.
 
 **Primary OSes tested:**
 
