@@ -15,7 +15,7 @@ Ao abrir **Subscriptions → Connect YouTube account**, o NewPipe abre um submen
 - **Verificar ligação agora**;
 - **Cancelar código de ativação**.
 
-O QR é gerado localmente pelo próprio add-on e abre a ligação curta de ativação do YouTube. **Não abre o SmartTube, nem depende do microG.**
+O QR é gerado localmente pelo próprio add-on e abre a ligação curta de ativação do YouTube. **Não abre o SmartTube.**
 
 ## Instalação
 

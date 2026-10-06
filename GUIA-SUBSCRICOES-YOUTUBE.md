@@ -1,6 +1,6 @@
 # Subscrições do YouTube — NewPipe 1.4.0
 
-O NewPipe 1.4.0 usa o mesmo formato de ativação YouTube TV usado pelo SmartTube. Não requer microG nem a criação/configuração de um cliente OAuth no Google Cloud.
+O NewPipe 1.4.0 usa o mesmo formato de ativação YouTube TV usado pelo SmartTube. Não requer a criação/configuração de um cliente OAuth no Google Cloud.
 
 ## Ativação
 

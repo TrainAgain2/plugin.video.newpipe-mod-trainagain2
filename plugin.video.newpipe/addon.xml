@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.newpipe" name="NewPipe MOD" version="1.4.9" provider-name="Twilight0 | MOD: @TrainAgain2">
+<addon id="plugin.video.newpipe" name="NewPipe MOD" version="1.4.10" provider-name="Twilight0 | MOD: @TrainAgain2">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
     </requires>
@@ -10,12 +10,14 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <summary lang="en">NewPipe MOD — Original creator: Twilight0 | MOD: @TrainAgain2</summary>
-        <description lang="en">NewPipe MOD. Original creator and upstream: Twilight0 (https://github.com/Twilight0/plugin.video.newpipe). MOD: @TrainAgain2. Browse and watch YouTube without an account. Search, channels, playlists and local subscriptions stay on your device. Optionally, sign in through the SmartTube-compatible YouTube TV activation flow at yt.be/activate; the add-on creates a genuine YouTube TV code and QR from current public TV client data, then synchronizes account subscriptions. Playback uses the bundled native engine to obtain one direct progressive audio/video stream, without a local proxy, microG or plugin.video.youtube.</description>
+        <description lang="en">NewPipe MOD. Original creator and upstream: Twilight0 (https://github.com/Twilight0/plugin.video.newpipe). MOD: @TrainAgain2. Browse and watch YouTube without an account. Search, channels, playlists and local subscriptions stay on your device. Optionally, sign in through the SmartTube-compatible YouTube TV activation flow at yt.be/activate; the add-on creates a genuine YouTube TV code and QR from current public TV client data, then synchronizes account subscriptions. Playback uses the bundled native engine to obtain one direct progressive audio/video stream, without a local proxy or plugin.video.youtube.</description>
         <disclaimer lang="en">This addon does not host or distribute any content; it only browses publicly available YouTube pages. Optional account linking stores its session token only in the local Kodi add-on profile.</disclaimer>
         <language>en</language>
         <license>GPL-3.0-only</license>
         <source>https://github.com/Twilight0/plugin.video.newpipe</source>
-        <news>[B]1.4.9 MOD[/B]
+        <news>[B]1.4.10 MOD[/B]
+- Cleans inactive Android-component references from metadata and documentation
+[B]1.4.9 MOD[/B]
 - Original creator/upstream: Twilight0
 - MOD: @TrainAgain2
 [B]1.4.8[/B]
@@ -96,7 +98,7 @@
 [B]1.1.1[/B]
 - Replace the Client ID setup with the direct SmartTube-compatible TV login: Login, code and yt.be/activate
 - Show the generated QR activation link with the one-time TV code; sync starts automatically after browser approval
-- Keep microG out of the add-on and do not embed credentials in the package
+- Do not embed credentials in the package
 [B]1.1.0[/B]
 [B]1.0.14[/B]
 - Add Trailers as a search type, using the selected trailer language/version and quality profile

@@ -46,7 +46,6 @@ A sincronização usa o endpoint interno autenticado do **YouTube TV** (`youtube
 
 - YouTube Data API v3;
 - projeto/chaves Google Cloud configuradas no Kodi;
-- microG;
 - `plugin.video.youtube`;
 - um add-on de dependência externo.
 

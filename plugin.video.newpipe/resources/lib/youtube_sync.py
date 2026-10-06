@@ -11,8 +11,8 @@ This module follows the current public SmartTube Android-TV login flow:
 
 No Client ID or secret is embedded in the add-on. The short-lived client data
 is fetched from the public JavaScript served to the official YouTube TV client,
-then cached only in the local Kodi add-on profile. No microG or
-plugin.video.youtube component is used.
+then cached only in the local Kodi add-on profile. No plugin.video.youtube
+component is used.
 """
 from __future__ import absolute_import
 
