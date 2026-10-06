@@ -171,6 +171,14 @@ def _artwork(image):
     }
 
 
+def _video_artwork(image):
+    """Provide fanart to skins that use it to crop-fill wide video cards."""
+    artwork = _artwork(image)
+    if image:
+        artwork['fanart'] = image
+    return artwork
+
+
 def _video_id(url):
     if not url:
         return ''
@@ -274,8 +282,11 @@ def _video_item(item, channel_url='', channel_title='', profile='default'):
         'action': 'play',
         'url': video_id,
         'image': image,
-        'artwork': _artwork(image),
-        'fanart': '',
+        # Keep the thumbnail for standard skins and expose the same frame as
+        # fanart for wide-card skins. Those skins crop fanart to the card,
+        # avoiding empty black side bars around a 16:9 YouTube thumbnail.
+        'artwork': _video_artwork(image),
+        'fanart': image,
         'duration': item.get('duration') or 0,
         'isFolder': 'False',
         'isPlayable': 'True',
