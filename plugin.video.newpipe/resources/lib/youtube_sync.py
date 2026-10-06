@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 """YouTube TV device linking and subscription synchronization.
 
-This module follows the current public SmartTube Android-TV login flow:
+This module implements the current public YouTube TV activation flow:
 
 * retrieve the current YouTube TV client pair from the public TV base script;
 * request a device code from the YouTube OAuth endpoint using the TV payload;
-* show the same yt.be/activate and youtube.com/qr/activate routes used by
-  SmartTube; and
+* show the official yt.be/activate and youtube.com/qr/activate routes; and
 * exchange the approved device code for a local refresh token.
 
 No Client ID or secret is embedded in the add-on. The short-lived client data
@@ -35,7 +34,7 @@ _MANUAL_ACTIVATE_URL = 'https://yt.be/activate'
 _QR_ACTIVATE_PREFIX = 'https://youtube.com/qr/activate/'
 _SCOPE = 'http://gdata.youtube.com https://www.googleapis.com/auth/youtube-paid-content'
 _GRANT_TYPE_DEVICE = 'http://oauth.net/grant_type/device/1.0'
-_FLOW = 'smarttube_youtube_tv_v2'
+_FLOW = 'newpipe_mod_youtube_tv_v2'
 _PROVIDER_FLOW = 'youtube_tv_public_client_v1'
 _TIMEOUT = 20
 _PROVIDER_CACHE_SECONDS = 10 * 60 * 60
@@ -236,18 +235,29 @@ def _request_device_code(provider):
 
 
 def _qr_url(user_code):
-    # This is the exact route used by SmartTube's YTSignInPresenter. It is a
-    # YouTube-TV code issued by the endpoint above, never a generic Google code.
+    # This is a YouTube-TV code issued by the endpoint above, never a generic
+    # Google device code.
     return _QR_ACTIVATE_PREFIX + str(user_code or '').replace(' ', '-')
 
 
 def _clear_legacy_session():
     token = storage.get_youtube_oauth_token()
-    if token and token.get('flow') != _FLOW:
+    if token and not _valid_token(token):
         storage.clear_youtube_oauth_token()
     pending = storage.get_youtube_oauth_pending()
-    if pending and pending.get('flow') != _FLOW:
+    if pending and not _valid_pending(pending):
         storage.clear_youtube_oauth_pending()
+
+
+def _valid_token(token):
+    """Accept a complete local YouTube TV session, including pre-MOD state."""
+    return bool(
+        isinstance(token, dict) and
+        token.get('refresh_token') and
+        token.get('client_id') and
+        token.get('client_secret') and
+        token.get('scope') == _SCOPE
+    )
 
 
 def _valid_pending(pending):
@@ -258,7 +268,6 @@ def _valid_pending(pending):
     except (TypeError, ValueError):
         return False
     return bool(
-        pending.get('flow') == _FLOW and
         pending.get('device_code') and
         pending.get('user_code') and
         pending.get('client_id') and
@@ -275,13 +284,13 @@ def status():
         pending = {}
     token = storage.get_youtube_oauth_token()
     return {
-        'connected': bool(token.get('refresh_token') and token.get('flow') == _FLOW),
+        'connected': _valid_token(token),
         'pending': bool(pending),
     }
 
 
 def pending_device_link():
-    """Return the active SmartTube-compatible YouTube TV code and QR target."""
+    """Return the active YouTube TV code and QR target."""
     pending = storage.get_youtube_oauth_pending()
     if not _valid_pending(pending):
         if pending:
@@ -297,7 +306,7 @@ def pending_device_link():
 
 
 def start_device_link():
-    """Issue a genuine YouTube-TV code using the SmartTube V2 request shape."""
+    """Issue a genuine YouTube-TV code using the public TV request shape."""
     _clear_legacy_session()
     provider = _tv_provider()
     status_code, payload = _request_device_code(provider)
@@ -330,13 +339,14 @@ def start_device_link():
         'next_poll_at': now,
         'client_id': provider['client_id'],
         'client_secret': provider['client_secret'],
+        'scope': _SCOPE,
     }
     storage.set_youtube_oauth_pending(pending)
     return pending
 
 
 def poll_pending_once():
-    """Poll the SmartTube-compatible YouTube TV token endpoint once."""
+    """Poll the YouTube TV token endpoint once."""
     pending = storage.get_youtube_oauth_pending()
     if not pending:
         return {'state': 'idle'}
@@ -391,7 +401,7 @@ def poll_pending_once():
 def _access_token():
     _clear_legacy_session()
     token = storage.get_youtube_oauth_token()
-    if not token.get('refresh_token') or token.get('flow') != _FLOW:
+    if not _valid_token(token):
         raise YouTubeSyncError('YouTube account is not connected')
 
     now = int(time.time())
@@ -457,7 +467,7 @@ def _browse_id(value):
     if value.get('channelId'):
         return str(value['channelId'])
     candidates = (
-        # SmartTube's authenticated TV response uses this exact tab shape.
+        # NewPipe MOD's authenticated TV response uses this exact tab shape.
         _nested_value(value, 'endpoint', 'browseEndpoint'),
         _nested_value(value, 'navigationEndpoint', 'browseEndpoint'),
         _nested_value(value, 'onSelectCommand', 'browseEndpoint'),
@@ -476,7 +486,7 @@ def _channel_id_from_tv_params(value):
     Current TVHTML5 does not place the subscribed channel's ``UC…`` ID in
     ``browseId``.  Each tab instead uses ``FEsubscriptions`` and carries the
     actual channel identifier in the URL-safe/base64 ``params`` value.  This
-    is the tab format used by SmartTube's ``ChannelListMediaGroup``.  Looking
+    is the tab format used by NewPipe MOD's ``ChannelListMediaGroup``.  Looking
     only at ``browseId`` therefore turns a valid account response into an
     empty list of channels.
     """
@@ -530,7 +540,7 @@ def _walk_dicts(value):
 def _youtube_tv_channels(payload):
     """Normalize channel cards and subscription tabs from the TV feed.
 
-    SmartTube reads the ``tvSecondaryNavRenderer`` tabs returned by
+    NewPipe MOD reads the ``tvSecondaryNavRenderer`` tabs returned by
     ``FEsubscriptions``: the first one is All subscriptions and every later
     tab is a subscribed channel. Modern YouTube TV can also return ordinary
     channel cards, so accept both response layouts.
@@ -571,7 +581,7 @@ def _youtube_tv_channels(payload):
             renderers.append(parent['tileRenderer'])
         for renderer in renderers:
             add_channel(renderer)
-        # SmartTube's subscribed-channel menu is built from these tab shapes.
+        # NewPipe MOD's subscribed-channel menu is built from these tab shapes.
         for key in ('tabRenderer', 'expandableTabRenderer', 'guideEntryRenderer'):
             renderer = parent.get(key)
             if isinstance(renderer, dict):
@@ -770,7 +780,7 @@ def _youtube_tv_videos(payload):
                                 if channel_id.startswith('UC') else ''),
             }
         # Modern authenticated TVHTML5 responses use tileRenderer instead of
-        # gridVideoRenderer.  SmartTube handles this separately; accepting it
+        # gridVideoRenderer.  NewPipe MOD handles this separately; accepting it
         # here is essential for current subscription feeds.
         tile = parent.get('tileRenderer')
         if isinstance(tile, dict):
@@ -807,7 +817,7 @@ def _youtube_tv_playlists(payload):
 
 
 def _tv_browse_context(browse_id='FEsubscriptions', params='', extra=None):
-    """Build the same TVHTML5 browse envelope as SmartTube's AppClient.TV.
+    """Build the same TVHTML5 browse envelope as NewPipe MOD's AppClient.TV.
 
     The prior version returned before applying ``params`` and omitted Cobalt's
     browser identity.  Those differences are harmless for a public search but
@@ -872,7 +882,7 @@ def _account_items(payload):
 
 
 def _page_id_from_account(account):
-    """Extract SmartTube's selected-account page id without saving account PII."""
+    """Extract NewPipe MOD's selected-account page id without saving account PII."""
     try:
         tokens = account['serviceEndpoint']['selectActiveIdentityEndpoint']['supportedTokens']
     except (KeyError, TypeError):
@@ -885,7 +895,7 @@ def _page_id_from_account(account):
 
 
 def _youtube_tv_headers(access_token, version, visitor_data, page_id=''):
-    """Return the authenticated headers applied by SmartTube's HTTP client."""
+    """Return the authenticated headers applied by NewPipe MOD's HTTP client."""
     headers = {
         'Authorization': 'Bearer {0}'.format(access_token),
         'Referer': _TV_HOME_URL,
@@ -894,7 +904,7 @@ def _youtube_tv_headers(access_token, version, visitor_data, page_id=''):
     }
     if visitor_data:
         headers['X-Goog-Visitor-Id'] = visitor_data
-    # SmartTube attaches this after selecting the current personal/brand account.
+    # NewPipe MOD attaches this after selecting the current personal/brand account.
     if page_id:
         headers['X-Goog-Pageid'] = page_id
     return headers
@@ -919,9 +929,9 @@ def _youtube_tv_request(access_token, url, browse_id='', params='', extra=None,
 
 
 def _update_account_identity(access_token):
-    """Resolve the selected YouTube/brand account exactly like SmartTube.
+    """Resolve the selected YouTube/brand account exactly like NewPipe MOD.
 
-    OAuth approval alone provides a token, while SmartTube immediately calls
+    OAuth approval alone provides a token, while NewPipe MOD immediately calls
     ``account/accounts_list`` and then includes ``X-Goog-Pageid`` on library
     requests.  Omitting that selected identity is why an approved session can
     look like an empty anonymous account in Kodi.
@@ -954,7 +964,7 @@ def _update_account_identity(access_token):
 def _youtube_tv_browse(access_token, browse_id, params=''):
     """Load an authenticated YouTube TV browse screen without Data API v3.
 
-    The request shape and endpoint are the ones used by SmartTube's TV browse
+    The request shape and endpoint are the ones used by NewPipe MOD's TV browse
     client. It deliberately never calls youtube.googleapis.com/youtube/v3.
     """
     page_id = storage.get_youtube_oauth_token().get('page_id') or ''
@@ -979,7 +989,7 @@ def sync_library():
     add-on profile and are replaced only by this explicit action.
     """
     access_token = _access_token()
-    # SmartTube performs this identity selection directly after device linking.
+    # NewPipe MOD performs this identity selection directly after device linking.
     # It is also required for accounts that were linked by earlier NewPipe
     # packages, which did not keep a page-id token.
     _update_account_identity(access_token)
@@ -1000,7 +1010,7 @@ def sync_library():
     storage.set_youtube_library('subscription_feed', feed)
     storage.set_youtube_library('subscribed_channels', channels)
 
-    # These are the same YouTube TV browse IDs used by SmartTube. A failure in
+    # These are the same YouTube TV browse IDs used by NewPipe MOD. A failure in
     # an optional account section must not discard a successfully read feed.
     optional = (
         ('watch_later', 'FEmy_youtube', 'cAc=', _youtube_tv_videos),
@@ -1027,7 +1037,7 @@ def sync_library():
 
 
 def sync_subscriptions():
-    """Import subscribed channels via the SmartTube-compatible TV browse feed."""
+    """Import subscribed channels via the NewPipe MOD-compatible TV browse feed."""
     return sync_library().get('channels', 0)
 
 

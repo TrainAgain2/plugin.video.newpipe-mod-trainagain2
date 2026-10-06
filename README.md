@@ -8,7 +8,7 @@ Edição MOD do NewPipe para Kodi, preservando a autoria original, o repositóri
 ## Destaques desta MOD
 
 - Reprodução direta do YouTube sem `plugin.video.youtube` ou proxy local.
-- Login de conta pelo fluxo de ativação YouTube TV compatível com SmartTube.
+- Login de conta pelo fluxo de ativação **YouTube TV** do NewPipe MOD.
 - Menus pessoais: subscrições, canais subscritos, ver mais tarde, playlists guardadas e histórico.
 - Pesquisa de vídeos, canais, playlists e trailers; paginação de 25 itens.
 - País, idioma, categorias e qualidade configuráveis.

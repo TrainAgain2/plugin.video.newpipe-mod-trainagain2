@@ -189,8 +189,8 @@ msgid "YouTube TV login method"
 msgstr "Método de login YouTube TV"
 
 msgctxt "#30075"
-msgid "Uses the current public YouTube TV client data, following SmartTube's activation flow."
-msgstr "Usa os dados públicos atuais do cliente YouTube TV, seguindo o fluxo de ativação do SmartTube."
+msgid "Uses the current public YouTube TV client data, following NewPipe MOD's activation flow."
+msgstr "Usa os dados públicos atuais do cliente YouTube TV, seguindo o fluxo de ativação do NewPipe MOD."
 
 msgctxt "#30076"
 msgid "Creates a YouTube TV activation code and QR. Authorize it with your Google account on another device."
@@ -255,3 +255,23 @@ msgstr "Histórico de reprodução local"
 msgctxt "#30034"
 msgid "Next page"
 msgstr "Próxima página"
+
+msgctxt "#30091"
+msgid "Step 1 — Scan QR code"
+msgstr "Passo 1 — Digitalizar QR Code"
+
+msgctxt "#30092"
+msgid "Step 2 — Use manual code: {0}"
+msgstr "Passo 2 — Usar código manual: {0}"
+
+msgctxt "#30093"
+msgid "Step 3 — Confirm connection"
+msgstr "Passo 3 — Confirmar ligação"
+
+msgctxt "#30094"
+msgid "Generate new code"
+msgstr "Gerar novo código"
+
+msgctxt "#30095"
+msgid "Cancel connection"
+msgstr "Cancelar ligação"

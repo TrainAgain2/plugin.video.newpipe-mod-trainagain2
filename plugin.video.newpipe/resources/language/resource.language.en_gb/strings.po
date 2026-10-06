@@ -293,7 +293,7 @@ msgid "YouTube TV login method"
 msgstr ""
 
 msgctxt "#30075"
-msgid "Uses the current public YouTube TV client data, following SmartTube's activation flow."
+msgid "Uses the current public YouTube TV client data, following NewPipe MOD's activation flow."
 msgstr ""
 
 msgctxt "#30076"
@@ -354,4 +354,24 @@ msgstr ""
 
 msgctxt "#30090"
 msgid "Local watch history"
+msgstr ""
+
+msgctxt "#30091"
+msgid "Step 1 — Scan QR code"
+msgstr ""
+
+msgctxt "#30092"
+msgid "Step 2 — Use manual code: {0}"
+msgstr ""
+
+msgctxt "#30093"
+msgid "Step 3 — Confirm connection"
+msgstr ""
+
+msgctxt "#30094"
+msgid "Generate new code"
+msgstr ""
+
+msgctxt "#30095"
+msgid "Cancel connection"
 msgstr ""

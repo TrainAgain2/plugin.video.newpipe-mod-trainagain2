@@ -669,7 +669,7 @@ def _subscription_channel_item(sub):
 
 @urldispatcher.register('subscription_channels', kwargs=['page'])
 def subscription_channels(page=1):
-    """List the imported/local channel cards in their own SmartTube-style folder."""
+    """List the imported/local channel cards in their own NewPipe MOD-style folder."""
     _build_paged(
         lambda limit: storage.get_subscriptions(),
         _subscription_channel_item,
@@ -837,27 +837,28 @@ def youtube_login_menu():
 
     _build([
         {
-            'title': 'Abrir QR Code (YouTube TV)', 'action': 'youtube_show_qr', 'url': qr_path,
+            'title': _text(30091, 'Step 1 — Scan QR code'), 'action': 'youtube_show_qr', 'url': qr_path,
             'image': qr_path, 'artwork': _artwork(qr_path), 'fanart': '',
             'isFolder': 'False', 'isPlayable': 'False',
         },
         {
-            'title': 'Código de ativação: {0}'.format(pending.get('user_code', '')),
+            'title': _text(30092, 'Step 2 — Use manual code: {0}').format(
+                pending.get('user_code', '')),
             'action': 'youtube_show_code', 'image': _icon('subscriptions'),
             'artwork': _artwork(_icon('subscriptions')), 'isFolder': 'False', 'isPlayable': 'False',
         },
         {
-            'title': 'Gerar novo código', 'action': 'youtube_new_code',
+            'title': _text(30094, 'Generate new code'), 'action': 'youtube_new_code',
             'image': _icon('history'), 'artwork': _artwork(_icon('history')),
             'isFolder': 'False', 'isPlayable': 'False',
         },
         {
-            'title': 'Verificar ligação agora', 'action': 'youtube_sync_now',
+            'title': _text(30093, 'Step 3 — Confirm connection'), 'action': 'youtube_sync_now',
             'image': _icon('subscriptions'), 'artwork': _artwork(_icon('subscriptions')),
             'isFolder': 'False', 'isPlayable': 'False',
         },
         {
-            'title': 'Cancelar código de ativação', 'action': 'youtube_cancel_login',
+            'title': _text(30095, 'Cancel connection'), 'action': 'youtube_cancel_login',
             'image': _icon('history'), 'artwork': _artwork(_icon('history')),
             'isFolder': 'False', 'isPlayable': 'False',
         },
@@ -880,7 +881,7 @@ def youtube_show_code():
         kodi.infoDialog('O código de ativação expirou. Inicie novamente.')
         return
     kodi.text_viewer('Fazer login no YouTube',
-                     'Abra: {0}\n\nCódigo:\n[B]{1}[/B]\n\nDepois de autorizar, volte ao submenu e escolha “Verificar ligação agora”.'.format(
+                     '1. Abra: {0}\n\n2. Introduza o código:\n[B]{1}[/B]\n\n3. Depois de autorizar, volte ao submenu e escolha “Passo 3 — Confirmar ligação”.'.format(
                          pending.get('verification_url', 'https://yt.be/activate'),
                          pending.get('user_code', '')))
 

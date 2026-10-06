@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.newpipe" name="NewPipe MOD" version="1.4.10" provider-name="Twilight0 | MOD: @TrainAgain2">
+<addon id="plugin.video.newpipe" name="NewPipe MOD" version="1.4.11" provider-name="Twilight0 | MOD: @TrainAgain2">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
     </requires>
@@ -10,12 +10,15 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <summary lang="en">NewPipe MOD — Original creator: Twilight0 | MOD: @TrainAgain2</summary>
-        <description lang="en">NewPipe MOD. Original creator and upstream: Twilight0 (https://github.com/Twilight0/plugin.video.newpipe). MOD: @TrainAgain2. Browse and watch YouTube without an account. Search, channels, playlists and local subscriptions stay on your device. Optionally, sign in through the SmartTube-compatible YouTube TV activation flow at yt.be/activate; the add-on creates a genuine YouTube TV code and QR from current public TV client data, then synchronizes account subscriptions. Playback uses the bundled native engine to obtain one direct progressive audio/video stream, without a local proxy or plugin.video.youtube.</description>
+        <description lang="en">NewPipe MOD. Original creator and upstream: Twilight0 (https://github.com/Twilight0/plugin.video.newpipe). MOD: @TrainAgain2. Browse and watch YouTube without an account. Search, channels, playlists and local subscriptions stay on your device. Optionally, sign in through the NewPipe MOD YouTube TV activation flow at yt.be/activate; the add-on creates a genuine YouTube TV code and QR from current public TV client data, then synchronizes account subscriptions. Playback uses the bundled native engine to obtain one direct progressive audio/video stream, without a local proxy or plugin.video.youtube.</description>
         <disclaimer lang="en">This addon does not host or distribute any content; it only browses publicly available YouTube pages. Optional account linking stores its session token only in the local Kodi add-on profile.</disclaimer>
         <language>en</language>
         <license>GPL-3.0-only</license>
         <source>https://github.com/Twilight0/plugin.video.newpipe</source>
-        <news>[B]1.4.10 MOD[/B]
+        <news>[B]1.4.11 MOD[/B]
+- Uses NewPipe MOD identity throughout the account-link implementation and documentation
+- Adds a framed, high-contrast QR activation card and a clear three-step login submenu
+[B]1.4.10 MOD[/B]
 - Cleans inactive Android-component references from metadata and documentation
 [B]1.4.9 MOD[/B]
 - Original creator/upstream: Twilight0
@@ -25,11 +28,11 @@
 - Normalizes the protocol-relative YouTube profile URLs and caches transparent circular avatar PNGs locally when the optional Kodi PIL module is available
 - Uses the original HTTPS profile photo as a safe fallback; a failed avatar never blocks a sync or channel folder
 [B]1.4.7[/B]
-- Corrects Subscribed channels for the current YouTube TV / SmartTube response: extracts each channel's UC ID from the authenticated subscription-tab parameters
+- Corrects Subscribed channels for the current YouTube TV / NewPipe MOD response: extracts each channel's UC ID from the authenticated subscription-tab parameters
 - Keeps the original channel avatar and title; selecting a channel opens its public videos through the existing NewPipe channel view
 [B]1.4.6[/B]
 - Selects the linked YouTube/brand account through the YouTube TV account endpoint and sends its required X-Goog-Pageid identity
-- Matches SmartTube's TVHTML5 Cobalt client context, including browser identity and TV surface flags
+- Matches NewPipe MOD's TVHTML5 Cobalt client context, including browser identity and TV surface flags
 - Reads current TVHTML5 tileRenderer subscription cards in addition to legacy video cards
 - Reports an actionable error instead of claiming a successful empty anonymous subscription import
 [B]1.4.5[/B]
@@ -37,21 +40,21 @@
 - Saves an authenticated YouTube TV library snapshot only after an explicit sync; opening account folders makes no network call
 - Keeps device linking in the background service but removes automatic post-login synchronization, avoiding Kodi freezes after QR approval
 [B]1.4.4[/B]
-- Corrects the SmartTube TV channel-tab parser (endpoint.browseEndpoint)
+- Corrects the NewPipe MOD TV channel-tab parser (endpoint.browseEndpoint)
 - Sends the required YouTube TV visitorData and X-Goog-Visitor-Id headers when importing subscriptions
 - Keeps the Subscriptions screen responsive; synchronization runs only from its explicit action
 [B]1.4.3[/B]
 - Refreshes the authenticated channel list automatically when opening Subscriptions or Subscribed channels
-- Shows the imported channel cards below the SmartTube-style navigation menu
+- Shows the imported channel cards below the NewPipe MOD-style navigation menu
 [B]1.4.2[/B]
-- Adds a SmartTube-style subscriptions hub: subscribed channels, subscription feed, sync and disconnect
+- Adds a NewPipe MOD-style subscriptions hub: subscribed channels, subscription feed, sync and disconnect
 - Imports channel tabs returned by the authenticated YouTube TV subscriptions screen
 [B]1.4.1[/B]
 - Uses the authenticated YouTube TV subscription feed instead of the unavailable YouTube Data API v3 project
 - Keeps a successful TV account link even when a later subscription import needs to be retried
 - Shows a Sync YouTube subscriptions action for an account that is already linked
 [B]1.4.0[/B]
-- Replaces the generic Google device code with SmartTube's YouTube TV V2 flow
+- Replaces the generic Google device code with NewPipe MOD's YouTube TV V2 flow
 - Generates a genuine YouTube TV QR at youtube.com/qr/activate/&lt;code&gt; and manual code at yt.be/activate
 - Obtains the current public YouTube TV client dynamically; no Google Cloud project, Client ID or secret is configured in Settings
 - Removes the legacy generic OAuth state that could show an unrelated app identity
@@ -96,7 +99,7 @@
 - No external script.module add-on is required during ZIP installation
 - Use the bundled standard-library transport instead of ResolveURL / PluginsGR add-ons
 [B]1.1.1[/B]
-- Replace the Client ID setup with the direct SmartTube-compatible TV login: Login, code and yt.be/activate
+- Replace the Client ID setup with the direct NewPipe MOD-compatible TV login: Login, code and yt.be/activate
 - Show the generated QR activation link with the one-time TV code; sync starts automatically after browser approval
 - Do not embed credentials in the package
 [B]1.1.0[/B]
