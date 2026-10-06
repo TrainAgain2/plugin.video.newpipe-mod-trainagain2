@@ -95,6 +95,10 @@ def _item(entry):
 
 
 def _build(items, **kwargs):
+    # Mark video rows explicitly. Arctic Fuse uses ``ListItem.DBType=video``
+    # to choose the landscape-card layout.
+    if kwargs.get('content') == 'videos' and 'mediatype' not in kwargs:
+        kwargs['mediatype'] = 'video'
     directory.builder([_item(i) for i in items if i], **kwargs)
 
 
@@ -172,11 +176,20 @@ def _artwork(image):
 
 
 def _video_artwork(image):
-    """Provide fanart to skins that use it to crop-fill wide video cards."""
-    artwork = _artwork(image)
-    if image:
-        artwork['fanart'] = image
-    return artwork
+    """Expose a YouTube frame as landscape art, never as a poster.
+
+    Arctic Fuse selects landscape video art only when thumb differs from (or
+    has no) poster. Do not set icon either: matching icon and fanart would
+    cause the skin to reject the landscape candidate.
+    """
+    if not image:
+        return {'fanart': ''}
+    return {
+        'thumb': image,
+        'landscape': image,
+        'banner': image,
+        'fanart': image,
+    }
 
 
 def _video_id(url):
@@ -282,9 +295,9 @@ def _video_item(item, channel_url='', channel_title='', profile='default'):
         'action': 'play',
         'url': video_id,
         'image': image,
-        # Keep the thumbnail for standard skins and expose the same frame as
-        # fanart for wide-card skins. Those skins crop fanart to the card,
-        # avoiding empty black side bars around a 16:9 YouTube thumbnail.
+        # Video cards are landscape artwork. No poster is sent: forcing a
+        # 16:9 YouTube image into poster is what creates black side bars in
+        # Arctic Fuse's wide-card view.
         'artwork': _video_artwork(image),
         'fanart': image,
         'duration': item.get('duration') or 0,
