@@ -19,29 +19,28 @@ from . import qr_login
 from . import storage
 from . import yt
 from . import youtube_sync
+from . import localization
 
 
 _STATE_PREFIX = 'np:'
 # YouTube hqdefault is 480x360 (4:3), which leaves vertical black bars in
 # landscape cards. mqdefault is 320x180 (16:9) and exists reliably for videos.
 _THUMBNAIL_URL = 'https://i.ytimg.com/vi/{0}/mqdefault.jpg'
-# The old English one-word queries (especially "Music" sorted globally by
-# views) strongly biased the results toward large unrelated markets. Keep the
-# browse labels and the underlying query in Portuguese for the Brazil/pt
-# default, like a localized NewPipe category rather than a global keyword.
+# The visible labels remain Portuguese because they follow Kodi's UI language.
+# The query term itself is converted at request time by localization.py.
 TRENDING_CATEGORIES = [
-    ('music', 'Música', 'Música'),
-    ('gaming', 'Jogos', 'Jogos'),
-    ('news', 'Notícias', 'Notícias'),
-    ('movies', 'Filmes', 'Filmes'),
-    ('live', 'Ao vivo', 'Ao vivo'),
+    ('music', 'Música', 'music'),
+    ('gaming', 'Jogos', 'gaming'),
+    ('news', 'Notícias', 'news'),
+    ('movies', 'Filmes', 'movies'),
+    ('live', 'Ao vivo', 'live'),
 ]
 LIVE_CATEGORIES = [
-    ('news', 'Notícias', 'Notícias ao vivo'),
-    ('music', 'Música', 'Música ao vivo'),
-    ('games', 'Jogos', 'Jogos ao vivo'),
-    ('sports', 'Esportes', 'Esportes ao vivo'),
-    ('podcasts', 'Podcasts', 'Podcasts ao vivo'),
+    ('news', 'Notícias', 'news'),
+    ('music', 'Música', 'music'),
+    ('games', 'Jogos', 'gaming'),
+    ('sports', 'Esportes', 'sports'),
+    ('podcasts', 'Podcasts', 'podcasts'),
 ]
 _LEGACY_TRENDING_QUERIES = {
     'Music': 'Música', 'Gaming': 'Jogos', 'News': 'Notícias',
@@ -401,11 +400,12 @@ def clear_cache():
 def trending(query=None, page=1):
     if not query:
         query = _configured_category(
-            'trending_category', TRENDING_CATEGORIES, 'Música')
+            'trending_category', TRENDING_CATEGORIES, 'music')
     else:
         # Links made with version 1.0.2 must not preserve the old global
         # English query after this localized-category update.
         query = _LEGACY_TRENDING_QUERIES.get(query, query)
+    query = localization.category_query(query)
     _build_paged(
         lambda limit: yt.trending_videos(query, limit=limit),
         lambda entry: _video_item(*entry),
@@ -426,9 +426,10 @@ def _live_results(query, limit):
 def live(query=None, page=1):
     if not query:
         query = _configured_category(
-            'live_category', LIVE_CATEGORIES, 'Notícias ao vivo')
+            'live_category', LIVE_CATEGORIES, 'news')
     else:
         query = _LEGACY_LIVE_QUERIES.get(query, query)
+    query = localization.category_query(query, live=True)
     _build_paged(
         lambda limit: _live_results(query, limit),
         lambda entry: _video_item(*entry),

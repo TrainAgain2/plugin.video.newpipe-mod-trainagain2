@@ -31,6 +31,51 @@ _COUNTRY_CATEGORY_SUFFIX = {
     'CV': 'Cabo Verde',
 }
 
+# Labels in the Kodi interface stay in the interface language, but a category
+# search must use the *configured YouTube content language*. Sending ``Música``
+# while requesting ``hl=ro&gl=RO`` still asks YouTube for Portuguese content.
+# These are the exact query terms sent for every language offered in settings.
+_CATEGORY_TERMS = {
+    'pt': {'music': 'Música', 'gaming': 'Jogos', 'news': 'Notícias',
+           'movies': 'Filmes', 'live': 'Ao vivo', 'sports': 'Esportes',
+           'podcasts': 'Podcasts'},
+    'en': {'music': 'Music', 'gaming': 'Gaming', 'news': 'News',
+           'movies': 'Movies', 'live': 'Live', 'sports': 'Sports',
+           'podcasts': 'Podcasts'},
+    'es': {'music': 'Música', 'gaming': 'Videojuegos', 'news': 'Noticias',
+           'movies': 'Películas', 'live': 'En vivo', 'sports': 'Deportes',
+           'podcasts': 'Pódcasts'},
+    'fr': {'music': 'Musique', 'gaming': 'Jeux', 'news': 'Actualités',
+           'movies': 'Films', 'live': 'En direct', 'sports': 'Sports',
+           'podcasts': 'Podcasts'},
+    'de': {'music': 'Musik', 'gaming': 'Gaming', 'news': 'Nachrichten',
+           'movies': 'Filme', 'live': 'Live', 'sports': 'Sport',
+           'podcasts': 'Podcasts'},
+    'it': {'music': 'Musica', 'gaming': 'Giochi', 'news': 'Notizie',
+           'movies': 'Film', 'live': 'Dal vivo', 'sports': 'Sport',
+           'podcasts': 'Podcast'},
+    'nl': {'music': 'Muziek', 'gaming': 'Games', 'news': 'Nieuws',
+           'movies': 'Films', 'live': 'Live', 'sports': 'Sport',
+           'podcasts': 'Podcasts'},
+    'ro': {'music': 'Muzică', 'gaming': 'Jocuri', 'news': 'Știri',
+           'movies': 'Filme', 'live': 'Live', 'sports': 'Sport',
+           'podcasts': 'Podcasturi'},
+    'tr': {'music': 'Müzik', 'gaming': 'Oyunlar', 'news': 'Haberler',
+           'movies': 'Filmler', 'live': 'Canlı', 'sports': 'Spor',
+           'podcasts': 'Podcastler'},
+    'ja': {'music': '音楽', 'gaming': 'ゲーム', 'news': 'ニュース',
+           'movies': '映画', 'live': 'ライブ', 'sports': 'スポーツ',
+           'podcasts': 'ポッドキャスト'},
+    'ko': {'music': '음악', 'gaming': '게임', 'news': '뉴스',
+           'movies': '영화', 'live': '라이브', 'sports': '스포츠',
+           'podcasts': '팟캐스트'},
+}
+_LIVE_SUFFIX = {
+    'pt': 'ao vivo', 'en': 'live', 'es': 'en vivo', 'fr': 'en direct',
+    'de': 'live', 'it': 'dal vivo', 'nl': 'live', 'ro': 'live',
+    'tr': 'canlı', 'ja': 'ライブ', 'ko': '라이브',
+}
+
 
 def _setting(name, default):
     try:
@@ -76,6 +121,43 @@ def content_country():
 def cache_key():
     """A locale-sensitive cache key so a setting change never reuses old results."""
     return '{0}:{1}'.format(content_language(), content_country())
+
+
+def _category_identifier(value):
+    """Resolve category ids and old localized route terms to one stable id."""
+    text = str(value or '').strip()
+    if text in _CATEGORY_TERMS['en']:
+        return text
+    normalized = text.casefold()
+    for terms in _CATEGORY_TERMS.values():
+        for identifier, label in terms.items():
+            label = label.casefold()
+            # Handles persisted routes from previous versions, such as
+            # ``Música`` and ``Notícias ao vivo``.
+            if normalized == label or normalized.startswith(label + ' '):
+                return identifier
+    return ''
+
+
+def category_query(category, live=False):
+    """Return a category query in the selected YouTube content language.
+
+    A free-text query is deliberately left untouched; only internal category
+    ids/labels are translated. This lets a user search any phrase manually.
+    """
+    original = str(category or '').strip()
+    identifier = _category_identifier(original)
+    if not identifier:
+        return original
+
+    language = content_language().split('-', 1)[0].lower()
+    terms = _CATEGORY_TERMS.get(language, _CATEGORY_TERMS['en'])
+    query = terms.get(identifier, original)
+    if live and identifier != 'live':
+        suffix = _LIVE_SUFFIX.get(language, 'live')
+        if suffix.casefold() not in query.casefold():
+            query = '{0} {1}'.format(query, suffix)
+    return query
 
 
 def regional_category_query(query):

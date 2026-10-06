@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.newpipe" name="NewPipe MOD" version="1.4.18" provider-name="Twilight0 | MOD: @TrainAgain2">
+<addon id="plugin.video.newpipe" name="NewPipe MOD" version="1.4.19" provider-name="Twilight0 | MOD: @TrainAgain2">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
     </requires>
@@ -15,7 +15,9 @@
         <language>en</language>
         <license>GPL-3.0-only</license>
         <source>https://github.com/Twilight0/plugin.video.newpipe</source>
-        <news>[B]1.4.18 MOD[/B]
+        <news>[B]1.4.19 MOD[/B]
+- Localizes Browse and Live category queries for every configured content language, including Romanian
+[B]1.4.18 MOD[/B]
 - Replaces 4:3 hqdefault thumbnails with YouTube's native 16:9 mqdefault thumbnails for full landscape cards
 [B]1.4.17 MOD[/B]
 - Declares video cards as landscape instead of posters, filling Arctic Fuse horizontal cards without black side bars
