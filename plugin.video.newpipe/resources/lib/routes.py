@@ -22,7 +22,9 @@ from . import youtube_sync
 
 
 _STATE_PREFIX = 'np:'
-_THUMBNAIL_URL = 'https://i.ytimg.com/vi/{0}/hqdefault.jpg'
+# YouTube hqdefault is 480x360 (4:3), which leaves vertical black bars in
+# landscape cards. mqdefault is 320x180 (16:9) and exists reliably for videos.
+_THUMBNAIL_URL = 'https://i.ytimg.com/vi/{0}/mqdefault.jpg'
 # The old English one-word queries (especially "Music" sorted globally by
 # views) strongly biased the results toward large unrelated markets. Keep the
 # browse labels and the underlying query in Portuguese for the Brazil/pt
