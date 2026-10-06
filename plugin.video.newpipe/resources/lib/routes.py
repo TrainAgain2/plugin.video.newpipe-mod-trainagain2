@@ -894,6 +894,14 @@ def youtube_cancel_login():
 
 @urldispatcher.register('youtube_sync_now')
 def youtube_sync_now():
+    def open_account_menu():
+        """Replace the transient QR submenu with the linked-account hub."""
+        try:
+            xbmc.executebuiltin(
+                'Container.Update(plugin://plugin.video.newpipe/?action=subscriptions,replace)')
+        except Exception as exc:
+            log('NewPipe não abriu o menu de sincronização: {0}'.format(exc))
+
     def refresh_library():
         summary = youtube_sync.sync_library()
         message = '{0} canais, {1} vídeos'.format(
@@ -904,6 +912,8 @@ def youtube_sync_now():
     if result.get('state') == 'authorized':
         try:
             refresh_library()
+            open_account_menu()
+            return
         except Exception as exc:
             kodi.infoDialog(_text(30070, 'YouTube sync failed: {0}').format(exc))
     elif result.get('state') == 'waiting':
@@ -915,6 +925,8 @@ def youtube_sync_now():
     else:
         try:
             refresh_library()
+            open_account_menu()
+            return
         except Exception as exc:
             kodi.infoDialog(_text(30070, 'YouTube sync failed: {0}').format(exc))
     kodi.refresh()

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Audio-track helper for NewPipe progressive playback.
+"""Background helper for progressive playback and account-link completion.
 
 This service does not use plugin.video.youtube. It only chooses Portuguese,
 then English, when Kodi exposes multiple tracks on a direct Googlevideo stream.
@@ -31,6 +31,19 @@ _AUDIO_PREFERENCE = (
     ('por', 'pt', 'portugu', 'brazil', 'brasil'),
     ('eng', 'en', 'ingl', 'english'),
 )
+
+_ACCOUNT_MENU_URL = 'plugin://plugin.video.newpipe/?action=subscriptions'
+
+
+def _open_account_menu():
+    """Replace the QR submenu with the account menu after authorization."""
+    try:
+        xbmc.executebuiltin('Container.Update({0},replace)'.format(
+            _ACCOUNT_MENU_URL))
+        xbmc.log('[NewPipe YouTube] menu de sincronização aberto', xbmc.LOGINFO)
+    except Exception as exc:
+        xbmc.log('[NewPipe YouTube] não foi possível abrir o menu da conta: {0}'.format(exc),
+                 xbmc.LOGWARNING)
 
 
 def _rpc(method, params):
@@ -109,8 +122,9 @@ def run():
                 # This prevents a background network request from freezing or
                 # destabilizing Kodi immediately after QR approval.
                 xbmcgui.Dialog().notification(
-                    'NewPipe', 'Conta YouTube ligada. Abra A minha conta e escolha Sincronizar.',
+                    'NewPipe MOD', 'Conta YouTube ligada. A abrir o menu de sincronização.',
                     time=6000)
+                _open_account_menu()
             elif result.get('state') == 'expired':
                 xbmcgui.Dialog().notification(
                     'NewPipe', 'O código de ligação do YouTube expirou', time=5000)

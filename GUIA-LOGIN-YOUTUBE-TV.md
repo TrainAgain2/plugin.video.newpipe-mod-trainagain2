@@ -20,7 +20,7 @@ No menu inicial, abra **A minha conta do YouTube**. Depois do login e de uma sin
 
 1. Abra **A minha conta do YouTube**.
 2. Se a conta ainda não estiver ligada, selecione **Fazer login no YouTube** e aprove o código em `yt.be/activate` ou pelo QR.
-3. Depois de a página Google informar que o dispositivo está ligado, volte ao Kodi.
+3. Depois de a página Google informar que o dispositivo está ligado, o NewPipe MOD fecha automaticamente o submenu QR e abre **A minha conta do YouTube**.
 4. Selecione **Sincronizar subscrições do YouTube** e aguarde o resumo, por exemplo: `12 canais, 48 vídeos`.
 5. Abra os menus de vídeos, canais, Ver mais tarde, playlists ou histórico.
 

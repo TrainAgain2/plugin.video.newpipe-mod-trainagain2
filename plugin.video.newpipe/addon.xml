@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.newpipe" name="NewPipe MOD" version="1.4.12" provider-name="Twilight0 | MOD: @TrainAgain2">
+<addon id="plugin.video.newpipe" name="NewPipe MOD" version="1.4.13" provider-name="Twilight0 | MOD: @TrainAgain2">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
     </requires>
@@ -15,7 +15,9 @@
         <language>en</language>
         <license>GPL-3.0-only</license>
         <source>https://github.com/Twilight0/plugin.video.newpipe</source>
-        <news>[B]1.4.12 MOD[/B]
+        <news>[B]1.4.13 MOD[/B]
+- After YouTube authorization, closes the QR submenu and opens My YouTube with the explicit Sync subscriptions action
+[B]1.4.12 MOD[/B]
 - Confirms self-contained ZIP installation: no Kodi repository, prior kit or external script.module add-on is needed
 [B]1.4.11 MOD[/B]
 - Uses NewPipe MOD identity throughout the account-link implementation and documentation
