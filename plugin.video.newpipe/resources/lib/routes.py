@@ -7,6 +7,7 @@
 from urllib.parse import parse_qs, urlencode, urlparse
 
 import xbmc
+import xbmcgui
 
 from scrapetube import get_search
 from tulip import directory, kodi
@@ -903,7 +904,23 @@ def youtube_sync_now():
             log('NewPipe não abriu o menu de sincronização: {0}'.format(exc))
 
     def refresh_library():
-        summary = youtube_sync.sync_library()
+        progress = None
+        try:
+            # Show immediate feedback before the authenticated TV browse starts.
+            # The server can take a few seconds, especially for larger accounts.
+            progress = xbmcgui.DialogProgress()
+            progress.create(
+                'NewPipe MOD',
+                'A sincronizar subscrições do YouTube',
+                'A obter canais e vídeos. Isto pode demorar alguns segundos.')
+            progress.update(10, 'A sincronizar subscrições do YouTube',
+                            'A obter canais e vídeos...')
+            xbmc.sleep(100)
+            summary = youtube_sync.sync_library()
+            progress.update(100, 'Sincronização concluída', 'A preparar o resumo...')
+        finally:
+            if progress:
+                progress.close()
         message = '{0} canais, {1} vídeos'.format(
             summary.get('channels', 0), summary.get('videos', 0))
         kodi.infoDialog(_text(30069, 'YouTube subscriptions synchronized: {0}').format(message))
