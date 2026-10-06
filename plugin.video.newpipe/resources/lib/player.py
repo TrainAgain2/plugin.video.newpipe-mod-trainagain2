@@ -19,6 +19,8 @@ from urllib.parse import parse_qs, urlencode, urlparse
 from tulip import directory, kodi
 from tulip.log import log
 
+from . import ui
+
 
 # The lightweight YouTube resolver is bundled in resources/lib/ytresolver.
 # It replaces the external PluginsGR / ResolveURL add-on chain so installation
@@ -388,7 +390,7 @@ def play(video_id, title='', image='', profile='default'):
     resolved = resolve(video_id, audio_only=audio_only, profile=profile)
     if not resolved:
         _clear_resolve_slot()
-        kodi.infoDialog('Não foi possível obter um vídeo reproduzível.')
+        kodi.infoDialog(ui.text(30179, 'Unable to obtain a playable video.'))
         _resolve_failure()
         return
 

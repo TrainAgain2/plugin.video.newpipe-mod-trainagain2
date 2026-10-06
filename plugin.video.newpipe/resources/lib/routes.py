@@ -20,27 +20,28 @@ from . import storage
 from . import yt
 from . import youtube_sync
 from . import localization
+from . import ui
 
 
 _STATE_PREFIX = 'np:'
 # YouTube hqdefault is 480x360 (4:3), which leaves vertical black bars in
 # landscape cards. mqdefault is 320x180 (16:9) and exists reliably for videos.
 _THUMBNAIL_URL = 'https://i.ytimg.com/vi/{0}/mqdefault.jpg'
-# The visible labels remain Portuguese because they follow Kodi's UI language.
-# The query term itself is converted at request time by localization.py.
+# The visible labels are translated by ui.py; the query term itself is converted
+# at request time by localization.py according to the content language.
 TRENDING_CATEGORIES = [
-    ('music', 'Música', 'music'),
-    ('gaming', 'Jogos', 'gaming'),
-    ('news', 'Notícias', 'news'),
-    ('movies', 'Filmes', 'movies'),
-    ('live', 'Ao vivo', 'live'),
+    ('music', 30160, 'music'),
+    ('gaming', 30161, 'gaming'),
+    ('news', 30162, 'news'),
+    ('movies', 30163, 'movies'),
+    ('live', 30164, 'live'),
 ]
 LIVE_CATEGORIES = [
-    ('news', 'Notícias', 'news'),
-    ('music', 'Música', 'music'),
-    ('games', 'Jogos', 'gaming'),
-    ('sports', 'Esportes', 'sports'),
-    ('podcasts', 'Podcasts', 'podcasts'),
+    ('news', 30162, 'news'),
+    ('music', 30160, 'music'),
+    ('games', 30161, 'gaming'),
+    ('sports', 30165, 'sports'),
+    ('podcasts', 30166, 'podcasts'),
 ]
 _LEGACY_TRENDING_QUERIES = {
     'Music': 'Música', 'Gaming': 'Jogos', 'News': 'Notícias',
@@ -68,19 +69,16 @@ _TRAILER_SEARCH_SUFFIXES = {
 
 
 def _text(value, fallback=''):
-    """Resolve integer string ids via i18n; pass through real titles."""
+    """Resolve numeric labels through the selected NewPipe MOD UI language."""
     if isinstance(value, int):
-        try:
-            return kodi.i18n(value)
-        except Exception:
-            return fallback
+        return ui.text(value, fallback)
     return value or fallback
 
 
 def _item(entry):
     entry = dict(entry)
     if 'title' in entry:
-        entry['title'] = _text(entry['title'], 'Unknown')
+        entry['title'] = _text(entry['title'], _text(30186, 'Unknown'))
     if isinstance(entry.get('cm'), list):
         fixed = []
         for cm in entry['cm']:
@@ -267,7 +265,7 @@ def _channel_cm(channel_url, channel_title=''):
 
 def _video_item(item, channel_url='', channel_title='', profile='default'):
     video_id = _video_id(item.get('url', ''))
-    title = item.get('title') or 'Unknown title'
+    title = item.get('title') or _text(30186, 'Unknown')
     if item.get('is_live'):
         title = '[LIVE] ' + title
     cm = _channel_cm(channel_url, channel_title)
@@ -374,7 +372,7 @@ def search(query=None):
 
 @urldispatcher.register('search_input')
 def search_input():
-    query = kodi.dialog.input(heading=kodi.i18n(30001))
+    query = kodi.dialog.input(heading=_text(30001, 'Search'))
     if query:
         storage.add_search(query)
         search_results(query)
@@ -392,7 +390,7 @@ def clear_searches():
 def clear_cache():
     from .constants import reset_cache
     ok = bool(reset_cache())
-    kodi.infoDialog(kodi.i18n(30032 if ok else 30033))
+    kodi.infoDialog(_text(30032 if ok else 30033))
     kodi.refresh()
 
 
@@ -503,8 +501,8 @@ def _list_playlist_results(query, page=1):
 @urldispatcher.register('search_results', kwargs=['url', 'kind', 'page'])
 def search_results(url, kind=None, page=1):
     if kind not in ('video', 'channel', 'playlist', 'trailer'):
-        kinds = [kodi.i18n(30010), kodi.i18n(30011), kodi.i18n(30012), kodi.i18n(30051)]
-        choice = kodi.selectDialog(kinds, heading=kodi.i18n(30001))
+        kinds = [_text(30010), _text(30011), _text(30012), _text(30051)]
+        choice = kodi.selectDialog(kinds, heading=_text(30001, 'Search'))
         if choice < 0:
             kodi.close_all()
             return
@@ -906,10 +904,10 @@ def youtube_show_qr(url):
 def youtube_show_code():
     pending = youtube_sync.pending_device_link()
     if not pending:
-        kodi.infoDialog('O código de ativação expirou. Inicie novamente.')
+        kodi.infoDialog(_text(30180, 'Activation code expired. Start again.'))
         return
-    kodi.text_viewer('Fazer login no YouTube',
-                     '1. Abra: {0}\n\n2. Introduza o código:\n[B]{1}[/B]\n\n3. Depois de autorizar, volte ao submenu e escolha “Passo 3 — Confirmar ligação”.'.format(
+    kodi.text_viewer(_text(30181, 'Sign in to YouTube'),
+                     _text(30182, 'Open: {0}\n\nEnter the code:\n[B]{1}[/B]\n\nAfter authorizing, return to this submenu and choose “Step 3 — Confirm connection”.').format(
                          pending.get('verification_url', 'https://yt.be/activate'),
                          pending.get('user_code', '')))
 
@@ -937,11 +935,11 @@ def youtube_sync_now():
         try:
             xbmcgui.Dialog().notification(
                 'NewPipe MOD',
-                'A sincronizar subscrições do YouTube…', time=10000)
+                _text(30184, 'Synchronizing YouTube subscriptions…'), time=10000)
         except Exception as exc:
             log('NewPipe não mostrou aviso de sincronização: {0}'.format(exc))
         summary = youtube_sync.sync_library()
-        message = '{0} canais, {1} vídeos'.format(
+        message = _text(30183, '{0} channels, {1} videos').format(
             summary.get('channels', 0), summary.get('videos', 0))
         kodi.infoDialog(_text(30069, 'YouTube subscriptions synchronized: {0}').format(message))
 
@@ -958,7 +956,8 @@ def youtube_sync_now():
     elif result.get('state') == 'expired':
         kodi.infoDialog(_text(30071, 'The YouTube authorization code expired. Start again.'))
     elif result.get('state') == 'failed':
-        kodi.infoDialog(_text(30070, 'YouTube sync failed: {0}').format(result.get('message', 'Unknown error')))
+        kodi.infoDialog(_text(30070, 'YouTube sync failed: {0}').format(
+            result.get('message', _text(30185, 'Unknown error'))))
     else:
         try:
             refresh_library()
