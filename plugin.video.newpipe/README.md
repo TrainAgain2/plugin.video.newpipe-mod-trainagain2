@@ -32,6 +32,17 @@ personal stays in plain JSON files inside the addon profile on your own device.
 - Local watch history, audio-only mode, function-cache viewer + clear button
 - "Go to channel" + Subscribe/Unsubscribe context menus on video items
 
+## Audio selection
+
+- Playback prioritizes the video's **original creator audio** by default. A
+  linked YouTube account or an English Kodi interface does not force an
+  English dubbed track.
+- Portuguese dubbed and auto-dubbed tracks are selected only when **Content
+  language** is explicitly configured as **Portuguese (Brazil) / pt-BR** in
+  NewPipe settings.
+- If the requested track is unavailable, the add-on safely falls back to a
+  playable stream supplied by YouTube.
+
 ## Known upstream limits (honest, not bugs here)
 
 - YouTube removed the combined trending page server-side (`FEtrending` returns

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.newpipe" name="NewPipe MOD" version="1.4.32" provider-name="Twilight0 | MOD: @TrainAgain2">
+<addon id="plugin.video.newpipe" name="NewPipe MOD" version="1.4.34" provider-name="Twilight0 | MOD: @TrainAgain2">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
     </requires>
@@ -15,7 +15,14 @@
         <language>en</language>
         <license>GPL-3.0-only</license>
         <source>https://github.com/Twilight0/plugin.video.newpipe</source>
-        <news>[B]1.4.32 MOD[/B]
+        <news>[B]1.4.34 MOD[/B]
+- Direct playback now prioritizes the creator's original audio track instead of inheriting the linked account/UI language
+- Portuguese dubbed or auto-dubbed audio is selected only when NewPipe Content language is explicitly set to Portuguese (Brazil) / pt-BR
+- Audio-stream cache is separated by this preference, so switching the setting immediately requests the correct track
+[B]1.4.33 MOD — TEST[/B]
+- Disconnect now removes the linked YouTube account token, library snapshots and account-imported subscriptions
+- Manually added subscriptions remain after disconnecting
+[B]1.4.32 MOD[/B]
 - Trailer results are always sorted by upload date, with the most recent releases first
 - The same newest-first order also applies to Trailer searches
 [B]1.4.31 MOD — TEST[/B]
