@@ -1,22 +1,26 @@
 import sys
 from bisect import bisect_left
 from typing import (
+    Dict,
     Generic,
+    List,
     NamedTuple,
     Optional,
+    Type,
     TypeVar,
     cast,
     overload,
-    Literal,
 )
+
+from typing import Literal
 
 from qrcode import constants, exceptions, util
 from qrcode.image.base import BaseImage
 from qrcode.image.pure import PyPNGImage
 
-ModulesType = list[list[Optional[bool]]]
+ModulesType = List[List[Optional[bool]]]
 # Cache modules generated just based on the QR Code version
-precomputed_qr_blanks: dict[int, ModulesType] = {}
+precomputed_qr_blanks: Dict[int, ModulesType] = {}
 
 
 def make(data=None, **kwargs):
@@ -81,7 +85,7 @@ class QRCode(Generic[GenericImage]):
         error_correction=constants.ERROR_CORRECT_M,
         box_size=10,
         border=4,
-        image_factory: Optional[type[GenericImage]] = None,
+        image_factory: Optional[Type[GenericImage]] = None,
         mask_pattern=None,
     ):
         _check_box_size(box_size)
@@ -189,10 +193,12 @@ class QRCode(Generic[GenericImage]):
 
     def setup_position_probe_pattern(self, row, col):
         for r in range(-1, 8):
+
             if row + r <= -1 or self.modules_count <= row + r:
                 continue
 
             for c in range(-1, 8):
+
                 if col + c <= -1 or self.modules_count <= col + c:
                     continue
 
@@ -327,14 +333,14 @@ class QRCode(Generic[GenericImage]):
         out.flush()
 
     @overload
-    def make_image(
-        self, image_factory: Literal[None] = None, **kwargs
-    ) -> GenericImage: ...
+    def make_image(self, image_factory: Literal[None] = None, **kwargs) -> GenericImage:
+        ...
 
     @overload
     def make_image(
-        self, image_factory: type[GenericImageLocal] = None, **kwargs
-    ) -> GenericImageLocal: ...
+        self, image_factory: Type[GenericImageLocal] = None, **kwargs
+    ) -> GenericImageLocal:
+        ...
 
     def make_image(self, image_factory=None, **kwargs):
         """
@@ -342,16 +348,6 @@ class QRCode(Generic[GenericImage]):
 
         If the data has not been compiled yet, make it first.
         """
-        # allow embeded_ parameters with typos for backwards compatibility
-        if (
-            kwargs.get("embedded_image_path")
-            or kwargs.get("embedded_image")
-            or kwargs.get("embeded_image_path")
-            or kwargs.get("embeded_image")
-        ) and self.error_correction != constants.ERROR_CORRECT_H:
-            raise ValueError(
-                "Error correction level must be ERROR_CORRECT_H if an embedded image is provided"
-            )
         _check_box_size(self.box_size)
         if self.data_cache is None:
             self.make()
@@ -410,16 +406,20 @@ class QRCode(Generic[GenericImage]):
         pos = util.pattern_position(self.version)
 
         for i in range(len(pos)):
+
             row = pos[i]
 
             for j in range(len(pos)):
+
                 col = pos[j]
 
                 if self.modules[row][col] is not None:
                     continue
 
                 for r in range(-2, 3):
+
                     for c in range(-2, 3):
+
                         if (
                             r == -2
                             or r == 2
@@ -448,6 +448,7 @@ class QRCode(Generic[GenericImage]):
 
         # vertical
         for i in range(15):
+
             mod = not test and ((bits >> i) & 1) == 1
 
             if i < 6:
@@ -459,6 +460,7 @@ class QRCode(Generic[GenericImage]):
 
         # horizontal
         for i in range(15):
+
             mod = not test and ((bits >> i) & 1) == 1
 
             if i < 8:
@@ -482,14 +484,18 @@ class QRCode(Generic[GenericImage]):
         data_len = len(data)
 
         for col in range(self.modules_count - 1, 0, -2):
+
             if col <= 6:
                 col -= 1
 
             col_range = (col, col - 1)
 
             while True:
+
                 for c in col_range:
+
                     if self.modules[row][c] is None:
+
                         dark = False
 
                         if byteIndex < data_len:
@@ -528,13 +534,13 @@ class QRCode(Generic[GenericImage]):
         code = [[False] * width] * self.border
         x_border = [False] * self.border
         for module in self.modules:
-            code.append(x_border + cast(list[bool], module) + x_border)
+            code.append(x_border + cast(List[bool], module) + x_border)
         code += [[False] * width] * self.border
 
         return code
 
     def active_with_neighbors(self, row: int, col: int) -> ActiveWithNeighbors:
-        context: list[bool] = []
+        context: List[bool] = []
         for r in range(row - 1, row + 2):
             for c in range(col - 1, col + 2):
                 context.append(self.is_constrained(r, c) and bool(self.modules[r][c]))

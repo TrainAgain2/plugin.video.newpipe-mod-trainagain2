@@ -1,10 +1,11 @@
 from itertools import chain
 
-from qrcode.compat.png import PngWriter
-from qrcode.image.base import BaseImage
+import png
+
+import qrcode.image.base
 
 
-class PyPNGImage(BaseImage):
+class PyPNGImage(qrcode.image.base.BaseImage):
     """
     pyPNG image builder.
     """
@@ -14,10 +15,7 @@ class PyPNGImage(BaseImage):
     needs_drawrect = False
 
     def new_image(self, **kwargs):
-        if not PngWriter:
-            raise ImportError("PyPNG library not installed.")
-
-        return PngWriter(self.pixel_size, self.pixel_size, greyscale=True, bitdepth=1)
+        return png.Writer(self.pixel_size, self.pixel_size, greyscale=True, bitdepth=1)
 
     def drawrect(self, row, col):
         """

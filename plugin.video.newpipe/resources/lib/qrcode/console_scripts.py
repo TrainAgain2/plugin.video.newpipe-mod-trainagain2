@@ -5,13 +5,10 @@ qr - Convert stdin (or the first argument) to a QR Code.
 When stdout is a tty the QR Code is printed to the terminal and when stdout is
 a pipe to a file an image is written. The default image format is PNG.
 """
-
 import optparse
 import os
 import sys
-from typing import NoReturn, Optional
-from collections.abc import Iterable
-from importlib import metadata
+from typing import Dict, Iterable, NoReturn, Optional, Set, Type
 
 import qrcode
 from qrcode.image.base import BaseImage, DrawerAliases
@@ -43,8 +40,9 @@ error_correction = {
 def main(args=None):
     if args is None:
         args = sys.argv[1:]
+    from pkg_resources import get_distribution
 
-    version = metadata.version("qrcode")
+    version = get_distribution("qrcode").version
     parser = optparse.OptionParser(usage=(__doc__ or "").strip(), version=version)
 
     # Wrap parser.error in a typed NoReturn method for better typing.
@@ -141,7 +139,7 @@ def main(args=None):
         img.save(sys.stdout.buffer)
 
 
-def get_factory(module: str) -> type[BaseImage]:
+def get_factory(module: str) -> Type[BaseImage]:
     if "." not in module:
         raise ValueError("The image factory is not a full python path")
     module, name = module.rsplit(".", 1)
@@ -150,7 +148,7 @@ def get_factory(module: str) -> type[BaseImage]:
 
 
 def get_drawer_help() -> str:
-    help: dict[str, set] = {}
+    help: Dict[str, Set] = {}
     for alias, module in default_factories.items():
         try:
             image = get_factory(module)

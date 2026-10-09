@@ -2,7 +2,6 @@
 This file provides zest.releaser entrypoints using when releasing new
 qrcode versions.
 """
-
 import os
 import re
 import datetime

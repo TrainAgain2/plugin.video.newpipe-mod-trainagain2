@@ -1,5 +1,6 @@
 import math
 import re
+from typing import List
 
 from qrcode import LUT, base, exceptions
 from qrcode.base import RSBlock
@@ -469,7 +470,7 @@ class QRData:
 
 class BitBuffer:
     def __init__(self):
-        self.buffer: list[int] = []
+        self.buffer: List[int] = []
         self.length = 0
 
     def __repr__(self):
@@ -495,14 +496,14 @@ class BitBuffer:
         self.length += 1
 
 
-def create_bytes(buffer: BitBuffer, rs_blocks: list[RSBlock]):
+def create_bytes(buffer: BitBuffer, rs_blocks: List[RSBlock]):
     offset = 0
 
     maxDcCount = 0
     maxEcCount = 0
 
-    dcdata: list[list[int]] = []
-    ecdata: list[list[int]] = []
+    dcdata: List[List[int]] = []
+    ecdata: List[List[int]] = []
 
     for rs_block in rs_blocks:
         dcCount = rs_block.data_count
@@ -548,6 +549,7 @@ def create_bytes(buffer: BitBuffer, rs_blocks: list[RSBlock]):
 
 
 def create_data(version, error_correction, data_list):
+
     buffer = BitBuffer()
     for data in data_list:
         buffer.put(data.mode, 4)

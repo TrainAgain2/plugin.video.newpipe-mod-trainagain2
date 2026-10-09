@@ -333,6 +333,9 @@ def _build_paged(fetch, item_builder, action, route_params=None, page=1, content
     if music_filter and _random_music_enabled():
         _save_music_pool(source, music_filter)
 
+    xbmc.log('[NewPipePagina] pagina={0} setare={1} cerut={2} primit={3}'.format(
+        page, per_page, requested, len(source)), xbmc.LOGINFO)
+
     start = (page - 1) * per_page
     end = start + per_page
     items = [item_builder(entry) for entry in source[start:end]]

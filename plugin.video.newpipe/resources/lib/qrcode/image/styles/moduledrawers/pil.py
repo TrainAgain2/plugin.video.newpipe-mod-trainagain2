@@ -1,6 +1,9 @@
-from typing import TYPE_CHECKING
+# Needed on case-insensitive filesystems
+from __future__ import absolute_import
 
-from PIL import Image, ImageDraw
+from typing import TYPE_CHECKING, List
+
+from qrcode.compat.pil import Image, ImageDraw
 from qrcode.image.styles.moduledrawers.base import QRModuleDrawer
 
 if TYPE_CHECKING:
@@ -136,7 +139,7 @@ class RoundedModuleDrawer(StyledPilQRModuleDrawer):
         self.SE_ROUND = self.NW_ROUND.transpose(Image.Transpose.ROTATE_180)
         self.NE_ROUND = self.NW_ROUND.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
 
-    def drawrect(self, box: list[list[int]], is_active: "ActiveWithNeighbors"):
+    def drawrect(self, box: List[List[int]], is_active: "ActiveWithNeighbors"):
         if not is_active:
             return
         # find rounded edges
@@ -246,9 +249,7 @@ class HorizontalBarsDrawer(StyledPilQRModuleDrawer):
         base_draw = ImageDraw.Draw(base)
         base_draw.ellipse((0, 0, fake_width * 2, fake_height), fill=front_color)
 
-        self.ROUND_LEFT = base.resize(
-            (width, shrunken_height), Image.Resampling.LANCZOS
-        )
+        self.ROUND_LEFT = base.resize((width, shrunken_height), Image.Resampling.LANCZOS)
         self.ROUND_RIGHT = self.ROUND_LEFT.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
 
     def drawrect(self, box, is_active: "ActiveWithNeighbors"):

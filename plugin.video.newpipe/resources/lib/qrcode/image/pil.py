@@ -1,5 +1,5 @@
 import qrcode.image.base
-from PIL import Image, ImageDraw
+from qrcode.compat.pil import Image, ImageDraw
 
 
 class PilImage(qrcode.image.base.BaseImage):
@@ -10,9 +10,6 @@ class PilImage(qrcode.image.base.BaseImage):
     kind = "PNG"
 
     def new_image(self, **kwargs):
-        if not Image:
-            raise ImportError("PIL library not found.")
-
         back_color = kwargs.get("back_color", "white")
         fill_color = kwargs.get("fill_color", "black")
 

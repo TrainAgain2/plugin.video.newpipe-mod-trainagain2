@@ -7,6 +7,8 @@
 # are cache-keyed by language/country. Video listings deliberately perform one
 # YouTube request chain only: prior builds fetched each page twice merely to add
 # a channel context-menu link, which made page changes unnecessarily slow.
+import xbmc
+
 from scrapetube.wrapper import (
     list_search,
     list_channel_videos,
@@ -26,7 +28,10 @@ def configure():
 @cache_function(cache_duration(15))
 def _search(query, limit=25, sort='relevance', locale='pt:BR'):
     localization.configure()
-    return list_search(query, limit=limit, sleep=0, sort_by=sort) or []
+    results = list_search(query, limit=limit, sleep=0, sort_by=sort) or []
+    xbmc.log('[NewPipePagina] scrape cerut={0} primit={1} sort={2} limba={3}'.format(
+        limit, len(results), sort, locale), xbmc.LOGINFO)
+    return results
 
 
 def search(query, limit=25, sort='relevance'):
