@@ -1,6 +1,6 @@
 # Addon Name: NewPipe MOD
 # Addon id: plugin.video.newpipe
-# Original Provider: Twilight0 | MOD: @TrainAgain2
+# Original Provider: Twilight0 | MOD: @TrainAgain2, @angelitto2005
 msgid ""
 msgstr ""
 "Project-Id-Version: NewPipe MOD\n"

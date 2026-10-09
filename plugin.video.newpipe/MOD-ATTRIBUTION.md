@@ -4,7 +4,7 @@
 |---|---|
 | Criador original / upstream | **Twilight0** |
 | Repositório original | https://github.com/Twilight0/plugin.video.newpipe |
-| MOD | **@TrainAgain2** |
+| MOD | **@TrainAgain2**, **@angelitto2005** |
 
 Esta edição é identificada no Kodi como **NewPipe MOD**.
 

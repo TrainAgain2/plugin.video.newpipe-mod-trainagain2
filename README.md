@@ -1,7 +1,7 @@
 # NewPipe MOD para Kodi
 
 > **Criador original / upstream:** [Twilight0](https://github.com/Twilight0/plugin.video.newpipe)  
-> **MOD:** **@TrainAgain2**
+> **MOD:** **@TrainAgain2**, **@angelitto2005**
 
 Edição MOD do NewPipe para Kodi, preservando a autoria original, o repositório de origem e a licença GPL-3.0-only.
 
